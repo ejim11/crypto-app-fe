@@ -82,11 +82,34 @@ class AuthNotifier extends StateNotifier<AuthData?> {
     }
   }
 
+  setUserEmail(String email) {
+    if (state != null) {
+      state = state!.copyWith(userEmail: email);
+    } else {
+      // Create a temporary AuthData with just the email
+      state = AuthData(
+        accessToken: '',
+        refreshToken: '',
+        user: User(
+          id: '',
+          firstname: '',
+          lastname: '',
+          role: '',
+          email: '',
+          phoneNumber: '',
+        ),
+        userEmail: email,
+      );
+    }
+  }
+
   // Get access token
   String? get accessToken => state?.accessToken;
 
   // Get refresh token
   String? get refreshToken => state?.refreshToken;
+
+  String? get userEmail => state?.userEmail;
 
   // Get user
   User? get user => state?.user;
