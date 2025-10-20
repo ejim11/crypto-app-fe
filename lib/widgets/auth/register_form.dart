@@ -1,17 +1,19 @@
-import "package:crypto_app/screens/auth/login_screen.dart";
+import "package:crypto_app/providers/auth_provider.dart";
+import "package:crypto_app/screens/auth/confirm_email_screen.dart";
 import "package:crypto_app/services/auth_service.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
 
   @override
-  State<RegisterForm> createState() {
+  ConsumerState<RegisterForm> createState() {
     return _RegisterFormState();
   }
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _enteredFirstnameController = TextEditingController();
@@ -66,6 +68,10 @@ class _RegisterFormState extends State<RegisterForm> {
       if (!mounted) return;
 
       if (result['success']) {
+        ref
+            .read(authProvider.notifier)
+            .setUserEmail(_enteredEmailController.text);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result['message']),
@@ -75,7 +81,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (ctx) => const Login()),
+          MaterialPageRoute(builder: (ctx) => const ConfirmEmailScreen()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -518,7 +524,8 @@ class _RegisterFormState extends State<RegisterForm> {
               ],
             ),
             child: ElevatedButton(
-              onPressed: _isLoading ? null : _submitCreateAccForm,
+              onPressed: _submitCreateAccForm,
+
               child: _isLoading
                   ? const SizedBox(
                       height: 20,
