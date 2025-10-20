@@ -39,6 +39,7 @@ class User {
 }
 
 class AuthData {
+  String? userEmail;
   final String accessToken;
   final String refreshToken;
   final User user;
@@ -47,6 +48,7 @@ class AuthData {
     required this.accessToken,
     required this.refreshToken,
     required this.user,
+    this.userEmail,
   });
 
   factory AuthData.fromJson(Map<String, dynamic> json) {
@@ -63,5 +65,20 @@ class AuthData {
       'refreshToken': refreshToken,
       'user': user.toJson(),
     };
+  }
+
+  AuthData copyWith({
+    String? userEmail,
+    String? accessToken,
+    String? refreshToken,
+    User? user,
+  }) {
+    return AuthData(
+      userEmail: userEmail ?? this.userEmail,
+      accessToken: accessToken ?? this.accessToken,
+      refreshToken: refreshToken ?? this.refreshToken,
+      user: user ?? this.user,
+      // ... copy other fields similarly
+    );
   }
 }
