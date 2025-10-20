@@ -83,6 +83,7 @@ class MyApp extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+            overlayColor: Colors.transparent,
           ),
         ),
       ),
@@ -105,6 +106,9 @@ class MyApp extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+            overlayColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
           ),
         ),
       ),
