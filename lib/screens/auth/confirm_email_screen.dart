@@ -9,67 +9,75 @@ class ConfirmEmailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    TextEditingController pinController = TextEditingController();
     final userEmail = ref.watch(authProvider)?.userEmail;
 
     return Scaffold(
-      appBar: AppBar(leading: Icon(Icons.arrow_back)),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.only(bottom: 40),
         color: Colors.white,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: OTPInputWidget(
-                title: 'Confirm your email',
-                text: 'We sent a code to ',
-                email: userEmail ?? '',
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              OTPInputWidget(
+                pinController: pinController,
                 btnText: 'Confirm email',
                 onBtnPressed: () {},
+                title: 'Confirm your email',
+                email: '$userEmail',
               ),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'By creating an account, you agree to our ',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.onTertiary,
-                    fontSize: 12,
+              Spacer(),
+              Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'By creating an account, you agree to our ',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onTertiary,
+                      fontSize: 12,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'terms of use',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onTertiary,
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Theme.of(
+                            context,
+                          ).colorScheme.onTertiary,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(builder: (ctx) => const Login()),
+                            // );
+                          },
+                      ),
+                      TextSpan(
+                        text: '.',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.onTertiary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'terms of use',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onTertiary,
-                        fontSize: 12,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Theme.of(
-                          context,
-                        ).colorScheme.onTertiary,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(builder: (ctx) => const Login()),
-                          // );
-                        },
-                    ),
-                    TextSpan(
-                      text: '.',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onTertiary,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
