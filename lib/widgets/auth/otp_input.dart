@@ -5,17 +5,16 @@ import 'package:timer_count_down/timer_count_down.dart';
 
 class OTPInputWidget extends StatefulWidget {
   final String title;
-  final String text;
-  final String btnText;
   final String email;
+  final String btnText;
   final Function() onBtnPressed;
-
+  final TextEditingController pinController;
   const OTPInputWidget({
     super.key,
     required this.title,
-    required this.text,
-    required this.btnText,
     required this.email,
+    required this.pinController,
+    required this.btnText,
     required this.onBtnPressed,
   });
 
@@ -24,13 +23,12 @@ class OTPInputWidget extends StatefulWidget {
 }
 
 class _OTPInputWidgetState extends State<OTPInputWidget> {
-  final pinController = TextEditingController();
   bool _isError = false;
   bool _isCounting = true;
 
   @override
   void dispose() {
-    pinController.dispose();
+    widget.pinController.dispose();
     super.dispose();
   }
 
@@ -50,42 +48,49 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.5,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-        ),
-        const SizedBox(height: 6),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.text,
+              widget.title,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: 14,
-                color: Theme.of(context).colorScheme.onSecondary,
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.5,
               ),
             ),
-            Text(
-              widget.email,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                Text(
+                  'We sent a code to ',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  widget.email,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         const SizedBox(height: 24),
         Pinput(
-          controller: pinController,
+          controller: widget.pinController,
           length: 4,
           // obscureText: true,
           separatorBuilder: (index) => const SizedBox(width: 10),
           forceErrorState: _isError,
           defaultPinTheme: defaultPinTheme.copyWith(
+            textStyle: Theme.of(
+              context,
+            ).textTheme.bodyLarge!.copyWith(fontSize: 40),
             decoration: defaultPinTheme.decoration!.copyWith(
               color: Colors.white,
               border: Border.all(color: Theme.of(context).colorScheme.primary),
@@ -126,7 +131,7 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
               minimumSize: const Size(double.infinity, 48),
             ),
             onPressed: () {
-              if (pinController.text.length < 4) {
+              if (widget.pinController.text.length < 4) {
                 setState(() {
                   _isError = true;
                 });
