@@ -1,6 +1,10 @@
 import 'package:crypto_app/providers/auth_provider.dart';
+import 'package:crypto_app/screens/auth/confirm_email_screen.dart';
+import 'package:crypto_app/screens/auth/forgot_password_screen.dart';
 import 'package:crypto_app/screens/auth/login_screen.dart';
 import 'package:crypto_app/screens/auth/register_screen.dart';
+import 'package:crypto_app/screens/auth/reset_password_otp_screen.dart';
+import 'package:crypto_app/screens/auth/reset_password_screen.dart';
 import 'package:crypto_app/screens/home/home_screen.dart';
 import 'package:crypto_app/screens/welcome/first_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +13,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // App color constants
 class AppColors {
-  static const primary = Color(0xFF5D00C0); // Button color
+  static const primary = Color.fromRGBO(93, 0, 192, 1); // Button color
   static const lightPurple = Color(0xFFF3EBFF); // Light text/backgrounds
-  static const darkText = Color(0xFF191C38); // Most text
-  static const mediumGray = Color(0xFF969696); // Secondary text
-  static const lightGray = Color(0xFFB2B2B2); // Tertiary text
+  static const darkText = Color.fromRGBO(25, 28, 56, 1); // Most text
+  static const mediumGray = Color.fromRGBO(150, 150, 150, 1); // Secondary text
+  static const lightGray = Color.fromRGBO(178, 178, 178, 1); // Tertiary text
 }
 
 // choosing a color scheme for light mode
@@ -65,14 +69,13 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authData = ref.watch(authProvider);
     return MaterialApp(
-      title: 'HandyMan',
+      title: 'Crypto App',
       debugShowCheckedModeBanner: false,
       // setting the dark theme
       darkTheme: ThemeData.dark().copyWith(
         // setting the color scheme for the dark theme
         colorScheme: kDarkColorScheme,
         textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Geist'),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
@@ -106,6 +109,7 @@ class MyApp extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+            side: BorderSide(color: Color.fromRGBO(127, 86, 217, 1)),
             overlayColor: Colors.transparent,
             shadowColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
@@ -116,6 +120,10 @@ class MyApp extends ConsumerWidget {
       routes: {
         '/login': (context) => const Login(),
         '/register': (context) => const Register(),
+        '/forgot-password': (context) => ForgotPasswordScreen(),
+        '/reset-password-otp': (context) => ResetPasswordOtpScreen(),
+        '/confirm-email': (context) => ConfirmEmailScreen(),
+        '/reset-password': (context) => ResetPasswordScreen(),
         '/home': (context) => const HomeScreen(),
       },
       // choosing theme based on the systems theme
