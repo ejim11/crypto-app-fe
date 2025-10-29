@@ -1,6 +1,7 @@
 import "package:crypto_app/providers/auth_provider.dart";
 import "package:crypto_app/screens/auth/confirm_email_screen.dart";
 import "package:crypto_app/services/auth_service.dart";
+import "package:crypto_app/widgets/labelled_input.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 
@@ -148,77 +149,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     super.dispose();
   }
 
-  Widget _buildLabeledInput({
-    required String label,
-    required TextEditingController controller,
-    required TextInputType keyboardType,
-    required String? Function(String?) validator,
-    required String placeholder,
-    TextInputAction textInputAction = TextInputAction.next,
-    Widget? prefixIcon,
-    Widget? suffixIcon,
-    bool obscureText = false,
-    ValueChanged<String>? onChanged,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 6),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          textInputAction: textInputAction,
-          obscureText: obscureText,
-
-          onChanged: onChanged,
-          style: const TextStyle(color: Colors.black),
-          decoration: InputDecoration(
-            hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onTertiary,
-              fontSize: 14,
-              letterSpacing: -0.5,
-            ),
-            hintText: placeholder,
-            fillColor: Color.fromRGBO(248, 251, 255, 1),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: Color.fromRGBO(213, 215, 218, 1),
-                width: 1,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 1,
-              ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red, width: 1),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 10,
-            ),
-          ),
-          validator: validator,
-        ),
-      ],
-    );
-  }
-
   Widget _buildPhoneNumberInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,7 +173,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               fontSize: 14,
               letterSpacing: -0.5,
             ),
-            fillColor: Color.fromRGBO(248, 251, 255, 1),
+            fillColor: const Color.fromRGBO(248, 251, 255, 1),
+            filled: true,
             prefixIcon: PopupMenuButton<String>(
               offset: const Offset(0, 40),
               onSelected: (value) {
@@ -306,7 +237,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 width: 1,
               ),
             ),
-            border: OutlineInputBorder(
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Colors.red, width: 1),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Colors.red, width: 1),
             ),
@@ -362,7 +297,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       key: _formKey,
       child: Column(
         children: [
-          _buildLabeledInput(
+          LabeledInput(
             label: 'First Name',
             controller: _enteredFirstnameController,
             keyboardType: TextInputType.name,
@@ -381,7 +316,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             },
           ),
           const SizedBox(height: 16),
-          _buildLabeledInput(
+          LabeledInput(
             label: 'Last Name',
             controller: _enteredLastnameController,
             keyboardType: TextInputType.name,
@@ -400,7 +335,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             },
           ),
           const SizedBox(height: 16),
-          _buildLabeledInput(
+          LabeledInput(
             label: 'Email Address',
             controller: _enteredEmailController,
             keyboardType: TextInputType.emailAddress,
@@ -423,7 +358,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           const SizedBox(height: 16),
           _buildPhoneNumberInput(),
           const SizedBox(height: 16),
-          _buildLabeledInput(
+          LabeledInput(
             label: 'Password',
             controller: _enteredPasswordController,
             keyboardType: TextInputType.visiblePassword,
@@ -436,11 +371,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 });
               },
               icon: _passwordVisible
-                  ? Icon(
+                  ? const Icon(
                       Icons.visibility_off_outlined,
                       color: Color.fromRGBO(96, 96, 96, 1),
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.visibility_outlined,
                       color: Color.fromRGBO(96, 96, 96, 1),
                     ),
@@ -516,7 +451,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.25),
+                  color: const Color.fromRGBO(0, 0, 0, 0.25),
                   blurRadius: 15,
                   offset: const Offset(0, 4),
                   spreadRadius: 0,
@@ -524,8 +459,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               ],
             ),
             child: ElevatedButton(
-              onPressed: _submitCreateAccForm,
-
+              onPressed: _isLoading ? null : _submitCreateAccForm,
               child: _isLoading
                   ? const SizedBox(
                       height: 20,
