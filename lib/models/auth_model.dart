@@ -1,10 +1,10 @@
 class User {
   final String id;
-  final String firstname;
-  final String lastname;
+  String? firstname;
+  String? lastname;
   final String role;
   final String email;
-  final String phoneNumber;
+  String? phoneNumber;
 
   User({
     required this.id,
