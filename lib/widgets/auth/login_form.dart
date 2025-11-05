@@ -42,8 +42,6 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             password: _passwordController.text,
           );
 
-      print(result);
-
       setState(() {
         _isLoading = false;
       });
