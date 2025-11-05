@@ -70,7 +70,7 @@ class AuthService {
 
       final responseData = jsonDecode(response.body);
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (responseData['statusCode'] == 200) {
         // Success
         return {
           'success': true,
