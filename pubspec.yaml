@@ -66,6 +66,17 @@ flutter:
   assets:
     - assets/images/app_logo.jpg
     - assets/images/auth_icon.png
+    - assets/images/home/home-icon.png
+    - assets/images/home/crypto-icon.png
+    - assets/images/home/gift-icon.png
+    - assets/images/home/transaction-icon.png
+    - assets/images/home/deposit-icon.png
+    - assets/images/home/buy-icon.png
+    - assets/images/home/sell-icon.png
+    - assets/images/home/swap-icon.png
+    - assets/images/home/airtime-icon.png
+    - assets/images/home/data-icon.png
+    - assets/images/home/no-transaction-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
