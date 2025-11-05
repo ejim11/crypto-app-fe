@@ -42,6 +42,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             password: _passwordController.text,
           );
 
+      print(result);
+
       setState(() {
         _isLoading = false;
       });
@@ -59,10 +61,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         );
 
         // Navigate to home or next screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (ctx) => const HomeScreen()),
-        );
+        Navigator.pushNamed(context, '/tabs');
       } else {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -226,6 +225,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             ),
             child: ElevatedButton(
               onPressed: _isLoading ? null : _submitLoginForm,
+              style: ElevatedButton.styleFrom(
+                disabledBackgroundColor: Theme.of(context).colorScheme.primary,
+              ),
               child: _isLoading
                   ? const SizedBox(
                       height: 25,
