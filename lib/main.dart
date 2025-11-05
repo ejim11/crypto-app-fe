@@ -6,6 +6,7 @@ import 'package:crypto_app/screens/auth/register_screen.dart';
 import 'package:crypto_app/screens/auth/reset_password_otp_screen.dart';
 import 'package:crypto_app/screens/auth/reset_password_screen.dart';
 import 'package:crypto_app/screens/home/home_screen.dart';
+import 'package:crypto_app/screens/home/tabs.dart';
 import 'package:crypto_app/screens/welcome/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,6 +69,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authData = ref.watch(authProvider);
+
     return MaterialApp(
       title: 'Crypto App',
       debugShowCheckedModeBanner: false,
@@ -116,7 +118,7 @@ class MyApp extends ConsumerWidget {
           ),
         ),
       ),
-      home: authData != null ? const HomeScreen() : const FirstScreen(),
+      home: authData?.accessToken != null ? const Tabs() : const FirstScreen(),
       routes: {
         '/login': (context) => const Login(),
         '/register': (context) => const Register(),
@@ -124,6 +126,7 @@ class MyApp extends ConsumerWidget {
         '/reset-password-otp': (context) => ResetPasswordOtpScreen(),
         '/confirm-email': (context) => ConfirmEmailScreen(),
         '/reset-password': (context) => ResetPasswordScreen(),
+        '/tabs': (context) => Tabs(),
         '/home': (context) => const HomeScreen(),
       },
       // choosing theme based on the systems theme
