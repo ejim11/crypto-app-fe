@@ -1,7 +1,10 @@
+import 'package:crypto_app/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  const Header({required this.headerText, super.key});
+
+  final String headerText;
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +12,7 @@ class Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Welcome, John',
+          headerText,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -53,14 +56,23 @@ class Header extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 8),
-            CircleAvatar(
-              backgroundColor: Color.fromRGBO(18, 132, 255, 1),
-              radius: 20,
-              child: Text(
-                'JD',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 14,
-                  color: Colors.white,
+
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => ProfileScreen()),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: Color.fromRGBO(18, 132, 255, 1),
+                radius: 20,
+                child: Text(
+                  'JD',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
