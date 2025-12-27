@@ -33,7 +33,7 @@ class BalanceSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '₦',
+                'N',
                 style: GoogleFonts.outfit(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 32,
