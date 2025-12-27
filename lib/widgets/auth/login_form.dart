@@ -1,5 +1,4 @@
 import "package:crypto_app/providers/auth_provider.dart";
-import "package:crypto_app/screens/home/home_screen.dart";
 import "package:crypto_app/widgets/labelled_input.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
