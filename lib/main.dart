@@ -15,7 +15,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // App color constants
 class AppColors {
   static const primary = Color.fromRGBO(93, 0, 192, 1); // Button color
-  static const lightPurple = Color(0xFFF3EBFF); // Light text/backgrounds
+  static const lightPurple = Color.fromRGBO(
+    223,
+    207,
+    247,
+    1,
+  ); // Light text/backgrounds
   static const darkText = Color.fromRGBO(25, 28, 56, 1); // Most text
   static const mediumGray = Color.fromRGBO(150, 150, 150, 1); // Secondary text
   static const lightGray = Color.fromRGBO(178, 178, 178, 1); // Tertiary text
