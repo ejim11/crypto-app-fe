@@ -6,7 +6,8 @@ class AuthService {
   // For Android emulator use: http://10.0.2.2:3001
   // For iOS simulator use: http://localhost:3001
   // For physical device use: http://YOUR_IP_ADDRESS:3001
-  static const String baseUrl = 'http://localhost:3005/api/v1';
+  static const String baseUrl = 'http://10.0.2.2:3005/api/v1';
+  // static const String baseUrl = 'https://8f2c6154b7c3.ngrok-free.app';
 
   // Register user
   static Future<Map<String, dynamic>> registerUser({
